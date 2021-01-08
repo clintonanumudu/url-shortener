@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title> URL Shortener </title>
+        
+        <link rel="stylesheet" href="style.css">
+	
+	</head>
+	
+	<body>
+		
+		<div class="urlinput">
+			
+			<input id="url" autocomplete="off" autofocus>
+			
+			<button id="shorten"> Shorten </button>
+			
+		</div>
+		
+		<script type="text/javascript">
+		    
+		    var shortenBtn = document.getElementById("shorten");
+		    
+		    shortenBtn.onclick = function() {
+		    	
+		    	var xhttp = new XMLHttpRequest();
+		    	
+		    	xhttp.open("POST", location.href, true);
+		    	
+		    	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		    	
+		    	xhttp.send("url=" + document.getElementById("url").value);
+		    	
+		    	xhttp.onreadystatechange = function() {
+		    		
+		    		if (this.readyState == 4 && this.status == 200) {
+		    			
+		    			document.getElementById("url").value = this.responseText;
+		    			
+		    			shortenBtn.innerHTML = "Copy";
+		    			
+		    			shortenBtn.onclick = function() {
+		    				
+		    				document.getElementById("url").select();
+		    				
+		    				document.getElementById("url").setSelectionRange(0, 99999);
+		    				
+		    				document.execCommand("copy");
+		    				
+		    			}
+		    			
+		    		}
+		    		
+		    	}
+		    	
+		    };
+		    
+		</script>
+	
+	</body>
+	
+</html>
