@@ -9,6 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
+	"start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/clintonanumudu/url-shortener/issues"
+  },
+  "engines": {
+    "node": "14.15.4"
   },
   "homepage": "https://github.com/clintonanumudu/url-shortener#readme"
 }
