@@ -113,40 +113,56 @@
 		<script type="text/javascript">
 		    
 		    var shortenBtn = document.getElementById("shorten");
-		    
-		    shortenBtn.onclick = function() {
+            
+            function shortenURL() {
+                
+                if (document.getElementById("url").value.length > 0) {
+                    
+                    var xhttp = new XMLHttpRequest();
+		    	    
+		        	xhttp.open("POST", location.href, true);
+		    	    
+		        	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		    	    
+		        	xhttp.send("url=" + document.getElementById("url").value);
+		    	    
+		        	xhttp.onreadystatechange = function() {
+		    	    	
+		        		if (this.readyState == 4 && this.status == 200) {
+		    	    		
+		    		    	document.getElementById("url").value = this.responseText;
+		    			    
+		        			shortenBtn.innerHTML = "Copy";
+                            
+                            shortenBtn.onclick = function() { copyURL(); }
+                            
+                            document.getElementById("url").onkeydown = function() {
+                                
+                                shortenBtn.innerHTML = "Shorten";
+                                
+                                shortenBtn.onclick = function() { shortenURL(); }
+                                
+                            }
+                            
+                        }
+                    
+                    }
+                    
+                }
+                
+            }
+            
+            function copyURL() {
+                
+                document.getElementById("url").select();
+		        
+		        document.getElementById("url").setSelectionRange(0, 99999);
 		    	
-		    	var xhttp = new XMLHttpRequest();
-		    	
-		    	xhttp.open("POST", location.href, true);
-		    	
-		    	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		    	
-		    	xhttp.send("url=" + document.getElementById("url").value);
-		    	
-		    	xhttp.onreadystatechange = function() {
-		    		
-		    		if (this.readyState == 4 && this.status == 200) {
-		    			
-		    			document.getElementById("url").value = this.responseText;
-		    			
-		    			shortenBtn.innerHTML = "Copy";
-		    			
-		    			shortenBtn.onclick = function() {
-		    				
-		    				document.getElementById("url").select();
-		    				
-		    				document.getElementById("url").setSelectionRange(0, 99999);
-		    				
-		    				document.execCommand("copy");
-		    				
-		    			}
-		    			
-		    		}
-		    		
-		    	}
-		    	
-		    };
+		    	document.execCommand("copy");
+                
+            }
+            
+            shortenBtn.onclick = function() { shortenURL(); }
 		    
 		</script>
 	

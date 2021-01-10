@@ -8,7 +8,7 @@ var fs = require("fs");
 
 var bodyParser = require("body-parser");
 
-var validUrl = require('valid-url');
+var validUrl = require("valid-url");
 
 app.use(bodyParser.json());
 
@@ -46,8 +46,6 @@ app.use(function (req, res) {
 				
 				else {
 					
-					console.log("Id already exists")
-					
 					generateId();
 					
 				}
@@ -56,7 +54,13 @@ app.use(function (req, res) {
 			
 		}
 		
-		if (validUrl.isUri(urlinput)){
+		if (urlinput.indexOf("http://") == -1 && urlinput.indexOf("https://") == -1) {
+			
+			urlinput = "https://" + urlinput;
+			
+		}
+		
+		if (validUrl.isUri(urlinput) && urlinput.indexOf("http://" + req.headers.host) !== 0 && urlinput.indexOf("https://" + req.headers.host) !== 0) {
 			
 			generateId();
 			
